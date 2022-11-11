@@ -1,0 +1,92 @@
+<html>
+  <head>
+    <style>
+        button {
+            margin: 1;
+        }
+        tr {
+            vertical-align: top;
+        }
+        video {
+            width: 300px;
+            background-color: rgb(0, 22, 54); /* 변경! */
+            padding: 1;  /* 변경! */
+            margin: 1px 1px;
+        }
+        .mainTable {
+            width: 100%;
+        }
+        .localColumn {
+            width: 246px;
+        }
+        .remoteColumn {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #localVideo {
+            width: 500; /* 크기 변경! */
+        }
+        .remoteVideo {
+            float: left;
+        }
+
+        .videoWrap {
+            margin: 5;  
+            /* padding: 5; */
+            /* background-color: papayawhip; */
+            display: flex;
+            justify-content: center;
+        }
+
+        @media only screen and (max-width: 240px) {
+            .video {
+                width: 240px;
+            }
+        }
+
+        @media only screen and (max-width:  240px) {
+            .video {
+                width:  240px;
+            }
+        }
+    </style>
+  </head>
+  <body>
+    <body>
+        <div id="video">
+            <table class="mainTable">
+                <h1>eyes talk</h1>
+                <tbody>
+                    <tr>
+                        <td class="localColumn">
+                            <video id="localVideo" autoplay class="video" muted ></video>
+                        </td>
+                
+                        <td class="remoteColumn">
+                            <div id="videoContainer"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <form action='login_page.php'>
+                <input type='button' 
+                       value='음소거' 
+                       onclick='alert("소리를 off 합니다")'/>
+              </form>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+  </body>
+  <footer>
+      <script src="bundle.js"></script>
+  </footer>
+</html>
