@@ -1,0 +1,35 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden
+}
+
+#local_vid {
+  height: 240px;
+  width: 360px;
+  object-fit: cover;
+  z-index: 2;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.video_grid {
+  z-index: 1;
+  position: relative;
+}
+
+.vid_mute_icon {
+  z-index: 3;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.mute_icon {
+  z-index: 4;
+  position: fixed;
+  bottom: 0;
+  right: 15%;
+}
