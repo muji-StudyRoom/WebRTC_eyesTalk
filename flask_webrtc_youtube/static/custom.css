@@ -31,5 +31,12 @@ body {
   z-index: 4;
   position: fixed;
   bottom: 0;
-  right: 15%;
+  right: 6.5%;
+}
+
+.video_share {
+  z-index: 5;
+  position: fixed;
+  bottom: 0;
+  right: 10.5%;
 }
