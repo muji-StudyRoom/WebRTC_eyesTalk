@@ -7,9 +7,9 @@ body {
 
 #local_vid {
   height: 240px;
-  width: 360px;
+  width: 150px;
   object-fit: cover;
-  z-index: 2;
+  z-index: 100;
   position: fixed;
   bottom: 0;
   right: 0;
@@ -18,25 +18,4 @@ body {
 .video_grid {
   z-index: 1;
   position: relative;
-}
-
-.vid_mute_icon {
-  z-index: 3;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-}
-
-.mute_icon {
-  z-index: 4;
-  position: fixed;
-  bottom: 0;
-  right: 6.5%;
-}
-
-.video_share {
-  z-index: 5;
-  position: fixed;
-  bottom: 0;
-  right: 10.5%;
 }

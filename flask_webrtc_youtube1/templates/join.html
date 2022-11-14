@@ -6,7 +6,7 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
     <!-- socketio -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.0/socket.io.js"></script>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -30,7 +30,6 @@
     <!-- custom css -->
     <link rel="stylesheet" href="{{url_for('static', filename='custom.css')}}">
 
-
     <script type="text/javascript">
         var myRoomID = "{{room_id}}";
         var myName = "{{display_name}}";
@@ -45,12 +44,13 @@
 </head>
 
 <body>
-    <div id="video_grid" class="video-grid"></div>
+    <div id="video_grid" class="video-grid"></div> 
+    <div class = 'mute_icon'><button id='mute_icon'>mic off</div>
+    <div class = 'vid_mute_icon'><button id='vid_mute_icon'>videocam off</div>
+    <div class = 'video_share'><button id='video_share'>video share</div>
     <video id="local_vid" autoplay muted></video>
-
     <script src="{{url_for('static', filename='video-manager.js')}}"></script>
     <script src="{{url_for('static', filename='chatroom_ui.js')}}"></script>
     <script src="{{url_for('static', filename='chatroom_networking.js')}}"></script>
 </body>
-
 </html>

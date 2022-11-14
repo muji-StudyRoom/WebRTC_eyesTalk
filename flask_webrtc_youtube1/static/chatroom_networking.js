@@ -17,6 +17,87 @@ var mediaConstraints = {
     }
 };
 
+const mode_sv = document.getElementById('video_share'); 
+mode_sv.addEventListener('click', (event) =>{
+    shareVideo();
+});
+
+/*
+function shareVideo(){
+    navigator.mediaDevices.getUserMedia({
+        audio: true
+    }).then(function(audioStream){
+        //오디오 스트림을 얻어냄
+    
+        navigator.mediaDevices.getDisplayMedia({
+            audio: true,
+            video: true
+        }).then(function(screenStream){
+            //스크린 공유 스트림을 얻어내고 여기에 오디오 스트림을 결합함
+            //local_stream.getTracks().forEach((track)=>{_peer_list[peer_id].addTrack(audioStream.getAudioTracks()[0]);});
+           //let local_stream = myVideo.srcObject;
+            screenStream.addTrack(audioStream.getAudioTracks()[0]);
+            myVideo.srcObject = screenStream;
+
+            let local_stream = screenStream;
+            local_stream.getTracks().forEach((track)=>{_peer_list[peer_id].addTrack(track, local_stream);});
+        }).catch(function(e){
+            console.log("getUserMedia Error! ", e);
+        });
+    }).catch(function(e){
+        console.log("getUserMedia Error! ", e);
+    });
+}
+*/
+
+function shareVideo(){
+    navigator.mediaDevices.getDisplayMedia({
+        //audio: true,
+        video: true
+    }).then(function(screenStream){
+        //스크린 공유 스트림을 얻어내고 여기에 오디오 스트림을 결합함 
+        //local_stream.getTracks().forEach((track)=>{_peer_list[peer_id].addTrack(audioStream.getAudioTracks()[0]);});
+        //let local_stream = myVideo.srcObject;
+        //screenStream.addTrack(audioStream.getAudioTracks()[0]);
+        myVideo.srcObject = screenStream;
+
+        let local_stream = screenStream;
+        //localStream.getTracks().forEach((track) => {track.stop();});
+        //local_stream.getTracks().forEach((track)=>{_peer_list[peer_id].addTrack(track, screenStream);});
+        local_stream.getTracks().forEach((track)=>{_peer_list[peer_id].addTrack(screenStream);});
+
+    }).catch(function(e){
+        console.log("getUserMedia Error! ", e);
+    });
+}
+
+
+/*
+function shareVideo(){
+    navigator.mediaDevices.getDisplayMedia({
+        video: true,
+        audio: true,
+    }).then((stream) => {
+        myVideo.srcObject = stream;// 내 비디오 공유 화면으로 변경
+        const videoTrack = stream.getVideoTracks()[0];
+        connectionRef
+        .getSenders()
+        .find((sender) => sender.track.kind === videoTrack.kind)
+        .replaceTrack(videoTrack);
+        videoTrack.onended = function () {
+        const screenTrack = userStream.getVideoTracks()[0];
+        connectionRef
+            .getSenders()
+            .find((sender) => sender.track.kind === screenTrack.kind)
+            .replaceTrack(screenTrack);
+        stream.getTracks().forEach((track) => track.stop());
+        srcObject = userStream; // 내 비디오로 변경
+    };
+});
+};
+}
+*/
+
 function startCamera()
 {
     navigator.mediaDevices.getUserMedia(mediaConstraints)
