@@ -93,5 +93,5 @@ def on_data(data):
     socketio.emit('data', data, room=target_sid)
 
 
-if any(platform.win32_ver()):
+if any(platform.mac_ver()):
     socketio.run(app, debug=True)
