@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, session
+import ssl
 from flask_socketio import SocketIO, emit, join_room
 import platform
 
@@ -22,6 +23,9 @@ def join():
                         "mute_audio": mute_audio, "mute_video": mute_video}
     return render_template("join.html", room_id=room_id, display_name=session[room_id]["name"], mute_audio=session[room_id]["mute_audio"], mute_video=session[room_id]["mute_video"])
 
+# ssl
+if __name__ == '__main__':
+    socketio.run(app,host="0.0.0.0",port=5000,debug=True,ssl_context=("cert.pem", "key.pem"))
 
 @socketio.on("connect")
 def on_connect():
@@ -93,5 +97,5 @@ def on_data(data):
     socketio.emit('data', data, room=target_sid)
 
 
-if any(platform.mac_ver()):
-    socketio.run(app, debug=True)
+# if any(platform.mac_ver()):
+#     socketio.run(app, debug=True)
