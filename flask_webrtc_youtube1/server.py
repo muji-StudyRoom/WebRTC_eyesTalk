@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, session
 from flask_socketio import SocketIO, emit, join_room
 import platform
 import ssl
+from elasticsearch import Elasticsearch
+from elasticsearch import helpers
+import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "wubba lubba dub dub"
@@ -12,6 +15,19 @@ users_in_room = {}
 rooms_sid = {}
 names_sid = {}
 
+# elk 
+es = Elasticsearch('http://192.168.56.103:9200')
+es.info()
+
+def utc_time():  
+    return datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
+
+def make_index(es, index_name):
+    if es.indices.exists(index=index_name):
+        es.indices.delete(index=index_name)
+        es.indices.create(index=index_name)
+
+index_name= 'webrtc_room'
 
 @app.route("/join", methods=["GET"])
 def join():
@@ -43,6 +59,13 @@ def on_join_room(data):
 
     # broadcast to others in the room
     print("[{}] New member joined: {}<{}>".format(room_id, display_name, sid))
+
+    # elk
+    date = datetime.datetime.now()
+    now = date.strftime('%m/%d/%y %H:%M:%S')
+    doc_join1= {"des":"New member joined", "room_id":room_id, "sid": sid, "@timestamp": utc_time()}
+    es.index(index=index_name, doc_type="log", body=doc_join1)
+    
     emit("user-connect", {"sid": sid, "name": display_name},
          broadcast=True, include_self=False, room=room_id)
 
@@ -66,6 +89,11 @@ def on_disconnect():
     sid = request.sid
     room_id = rooms_sid[sid]
     display_name = names_sid[sid]
+
+    now = datetime.datetime.now()
+    now = now.strftime('%m/%d/%y %H:%M:%S')
+    doc_disconnect= {"des":"user-disconnect", "room_id":room_id, "sid": sid, "@timestamp": utc_time()}
+    es.index(index=index_name, doc_type="log", body=doc_disconnect)
 
     print("[{}] Member left: {}<{}>".format(room_id, display_name, sid))
     emit("user-disconnect", {"sid": sid},
@@ -100,3 +128,4 @@ host="0.0.0.0",
 port=5000,
 debug=True,
 ssl_context=("cert.pem", "key.pem"))
+make_index(es, index_name)
