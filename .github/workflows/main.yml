@@ -14,7 +14,7 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: leehyunji/flask-webrtc
+          images: leehyunji/webrtc-flask
           tag-semver: |
             {{version}}
             {{major}}.{{minor}}
