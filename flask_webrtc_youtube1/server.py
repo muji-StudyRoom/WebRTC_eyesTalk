@@ -15,7 +15,7 @@ users_in_room = {}
 rooms_sid = {}
 names_sid = {}
 
-# elk 
+# elk-kibana 
 es = Elasticsearch('http://192.168.56.103:9200')
 es.info()
 
@@ -120,7 +120,6 @@ def on_data(data):
         print('{} message from {} to {}'.format(
             data["type"], sender_sid, target_sid))
     socketio.emit('data', data, room=target_sid)
-
 
 if __name__ == '__main__':
     socketio.run(app,
