@@ -9,5 +9,3 @@ WORKDIR /app/server
 RUN pip3 install -r requirements.txt
 
 RUN python 
-
-ENTRYPOINT ["python", "Server.py"]
