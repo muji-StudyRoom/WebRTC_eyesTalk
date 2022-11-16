@@ -6,7 +6,7 @@ COPY . /app/server
 
 WORKDIR /app/server
 
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 
 RUN python 
 
