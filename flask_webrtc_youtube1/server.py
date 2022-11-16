@@ -15,7 +15,7 @@ users_in_room = {}
 rooms_sid = {}
 names_sid = {}
 
-# elk-kibana 
+# elk, kibana
 es = Elasticsearch('http://192.168.56.103:9200')
 es.info()
 
