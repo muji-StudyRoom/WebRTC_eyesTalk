@@ -35,7 +35,7 @@ jobs:
         id: image-info
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: eyestalktest
+          ECR_REPOSITORY: eyestalk-test
           IMAGE_TAG: ${{ steps.tag_version.outputs.new_tag }}
         run: |
           echo "::set-output name=ecr_repository::\$ECR_REPOSITORY"
